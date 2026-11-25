@@ -1,0 +1,23 @@
+name: Publier l'APK
+
+on:
+  push:
+    branches: [main]
+    paths: ['labbayk.apk']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ github.run_number }}
+          name: Labbayk (version ${{ github.run_number }})
+          body: App Android Labbayk (Omra et Hajj). Téléchargez labbayk.apk ci-dessous.
+          files: labbayk.apk
+          make_latest: true
